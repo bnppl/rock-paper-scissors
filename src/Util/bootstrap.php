@@ -11,11 +11,16 @@
  * @author beneppel
  */
 
+
 spl_autoload_register(function ($classname) {
     $classname = ltrim($classname, "\\");
     preg_match('/^(.+)?([^\\\\]+)$/U', $classname, $match);
     $classname = str_replace("\\", "/", $match[1])
-        . str_replace(["\\", "_"], "/", $match[2])
+        . str_replace(array("\\", "_"), "/", $match[2])
         . ".php";
-    include_once $classname;
+    
+    $document_root = dirname(__FILE__).'/../';
+    if(file_exists($document_root.$classname)){
+        include_once $document_root.$classname;    
+    }
 });

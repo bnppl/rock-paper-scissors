@@ -6,11 +6,11 @@
  */
 
 /**
- * Description of Rock
+ * Description of Player
  *
  * @author beneppel
  */
-class Rock {
+class Player {
     //put your code here
 }
 

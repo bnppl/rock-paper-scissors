@@ -6,12 +6,18 @@
  */
 
 /**
- * Description of FrontController
+ * Description of Game
  *
  * @author beneppel
  */
-class FrontController {
-    //put your code here
+class Game {
+    
+    
+    public function play($player1, $player2){
+    
+        return true;
+    }
+
 }
 
 ?>
