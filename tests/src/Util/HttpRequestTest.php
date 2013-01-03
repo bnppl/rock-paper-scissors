@@ -47,6 +47,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCreateFromGlobals() {
         // Remove the following lines when you implement this test.
+        
         $this->markTestIncomplete(
                 'This test has not been implemented yet.'
         );
@@ -97,10 +98,11 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testGetGetParameter().
      */
     public function testGetGetParameter() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        
+        $this->assertEquals('value', $this->object->get('key'));
+        $this->assertEquals('val', $this->object->get('var'));
+        $this->assertEmpty($this->object->get('baz'));
+        $this->assertEmpty($this->object->get('USER_AGENT'));
     }
 
     /**

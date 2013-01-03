@@ -2,6 +2,6 @@
 
 use Util\HttpRequest as HttpRequest;
 
-include '../src/util/bootstrap.php';
+include '../src/Util/bootstrap.php';
 
 HttpRequest::createFromGlobals();
