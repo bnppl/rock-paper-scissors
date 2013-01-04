@@ -93,13 +93,30 @@ class GameTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCompleteChallenge() {
         
-        $choice = new Choice('paper');
+        $choice = new Choice('Rock');
         
         $this->object->completeChallenge($choice, 1, 'hash');
         
         $result = $this->object->getResult(1, 'hash');
         
-        $this->assertEquals('Simon wins!', $result);
+        $this->assertContains('draw', $result);
+        
+    }
+
+    /**
+     * @covers Model\Game::getResult
+     * @todo   Implement testCompleteChallenge().
+     */
+    public function testGetResult() {
+        
+        $choice = new Choice('Rock');
+        
+        $this->object->completeChallenge($choice, 1, 'hash');
+        
+        $result = $this->object->getResult(1, 'hash');
+        
+        
+        $this->assertContains('draw', $result);
         
     }
 

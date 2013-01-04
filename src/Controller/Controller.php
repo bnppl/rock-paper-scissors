@@ -71,8 +71,13 @@ class Controller {
     
     
 
-    protected function render($template, $params) {
-
+    protected function render($template, array $unfilteredParams) {
+        
+        $params = array();
+        /* clean up our outputs */
+        foreach($unfilteredParams as $key=>$value){
+            $params[$key] = htmlentities($value);
+        }
         $path_to_views = DOCUMENT_ROOT . '/src/view/';
         if (file_exists($path_to_views)) {
             ob_start();

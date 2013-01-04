@@ -16,13 +16,13 @@ class Game {
         $result = $choice->compare($computerChoice);
         
         if($result == 0){
-            return 'It\'s a draw - nobody wins.';
+            return 'It\'s a draw - nobody wins. You and the computer both chose '.$choice->getWeapon().'.';
         }
         elseif($result == 1){
-            return 'You win!';
+            return 'You win! You chose '.$choice->getWeapon().' and the computer chose '.$computerChoice->getWeapon().'.';
         }
         else{
-            return 'Computer wins!';
+            return 'Computer wins! You chose '.$choice->getWeapon().' and the computer chose '.$computerChoice->getWeapon().'.';
         }
         
     }
@@ -75,10 +75,10 @@ class Game {
             return 'It\'s a draw - nobody wins.';
         }
         elseif($result == 1){
-            return $game['player1'].' wins!';
+            return $game['player1'].' wins! '.$game['player1'].' chose '.$game['player1Choice'].' and '.$game['player2'].' chose '.$game['player2Choice'].'.';
         }
         else{
-            return $game['player2'].' wins!';
+            return $game['player2'].' wins!'.$game['player1'].' chose '.$game['player1Choice'].' and '.$game['player2'].' chose '.$game['player2Choice'].'.';;
         }
         
     }

@@ -24,7 +24,12 @@ $controller = new Controller();
 
 
 /* this would be handled by the router / dispatcher */
-$route = substr($request->getHeader('REQUEST_URI'), 0, strpos($request->getHeader('REQUEST_URI'), '?'));
+if(strpos($request->getHeader('REQUEST_URI'), '?')){
+  $route = substr($request->getHeader('REQUEST_URI'), 0, strpos($request->getHeader('REQUEST_URI'), '?'));  
+}
+else{
+    $route = $request->getHeader('REQUEST_URI');
+}
 
 switch ($route)
 {
@@ -34,6 +39,8 @@ switch ($route)
     case '/challenge':
         $content = $controller->challengeAction($request);
         break;
+
+        
     
 }
 
