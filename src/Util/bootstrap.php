@@ -1,16 +1,14 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of bootstrap
+ * This file should be refactored into a class, which does a bit more actual boot strapping, 
+ * the autoloader could also be made more advanced and be put into it's own class
  *
  * @author beneppel
  */
 
+
+define('DOCUMENT_ROOT', dirname(__FILE__).'/../../');
 
 spl_autoload_register(function ($classname) {
     $classname = ltrim($classname, "\\");
@@ -19,8 +17,9 @@ spl_autoload_register(function ($classname) {
         . str_replace(array("\\", "_"), "/", $match[2])
         . ".php";
     
-    $document_root = dirname(__FILE__).'/../';
-    if(file_exists($document_root.$classname)){
-        include_once $document_root.$classname;    
+    $src = DOCUMENT_ROOT.'src/';
+    if(file_exists($src.$classname)){
+        include_once $src.$classname;    
     }
 });
+

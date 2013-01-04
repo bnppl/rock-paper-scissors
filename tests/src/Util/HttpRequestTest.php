@@ -28,7 +28,8 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
             'test' =>1,
         );
         $server=array(
-            'USER_AGENT' => 'firefox'
+            'USER_AGENT' => 'firefox',
+            'REQUEST_METHOD' => 'GET',
         );
         $this->object =  HttpRequest::create($get, $post, $server);
     }
@@ -47,14 +48,21 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCreateFromGlobals() {
         // Remove the following lines when you implement this test.
-        
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+       $_GET['test1'] = 'test'; 
+       $_POST['test2'] = 'test2'; 
+       $_SERVER['test3'] = 'test3';
+       
+       $request = HttpRequest::createFromGlobals();
+       
+       $this->assertAttributeContains('test', 'get', $request);
+       $this->assertAttributeContains('test2', 'post', $request);
+       $this->assertAttributeContains('test3', 'server', $request);
+       
     }
 
     /**
      * @covers Util\HttpRequest::create
+     * @covers Util\HttpRequest::__construct
      * @todo   Implement testCreate().
      */
     public function testCreate() {
@@ -99,10 +107,10 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetGetParameter() {
         
-        $this->assertEquals('value', $this->object->get('key'));
-        $this->assertEquals('val', $this->object->get('var'));
-        $this->assertEmpty($this->object->get('baz'));
-        $this->assertEmpty($this->object->get('USER_AGENT'));
+        $this->assertEquals(1, $this->object->getGetParameter('choice'));
+        $this->assertEquals('val', $this->object->getGetParameter('var'));
+        $this->assertEmpty($this->object->getGetParameter('baz'));
+        $this->assertEmpty($this->object->getGetParameter('USER_AGENT'));
     }
 
     /**
@@ -110,10 +118,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testGetPostParameter().
      */
     public function testGetPostParameter() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('value', $this->object->getPostParameter('key'));
+        $this->assertEquals(false, $this->object->getPostParameter('fake_key'));
+        $this->assertEmpty($this->object->getPostParameter('baz'));
     }
 
     /**
@@ -121,10 +128,19 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testGetHeader().
      */
     public function testGetHeader() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+       $this->assertEquals('firefox', $this->object->getHeader('USER_AGENT')); 
+       $this->assertEquals('firefox', $this->object->getHeader('user_agent')); 
+       $this->assertEmpty($this->object->getHeader('baz'));
+    }
+
+    /**
+     * @covers Util\HttpRequest::isMethod
+     * @todo   Implement testGetHeader().
+     */
+    public function testIsMethod() {
+       
+       $this->assertTrue($this->object->isMethod('get'));
+       $this->assertFalse($this->object->isMethod('post'));
     }
 
 }
